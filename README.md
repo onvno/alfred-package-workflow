@@ -21,7 +21,16 @@ node koa
 
 
 
-#### 文件目录
+#### 文件目录及分支
 
 * source:源码
 * package:alfred对应的包下载即可食用
+* 两个分支分别使用了内嵌脚本和独立脚本两种写法
+
+
+
+#### 参考
+
+* [pm2.5- alfred](https://github.com/wahyd4/PM2.5-Alfred)
+* [Alfred Workflow教程与实例](https://www.jianshu.com/p/729d5f9991b8)
+
