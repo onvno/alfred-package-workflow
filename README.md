@@ -2,6 +2,8 @@
 
 命令行中快速搜索查找包，默认点击会直接跳转包的仓库，仓库未提供的情况跳转到npm包的主页。
 
+开发中一些[小坑小体会见这篇文字](http://leedoo.cn/post/alfred-workflowgong-zuo-liu)
+
 #### 使用
 
 ```
