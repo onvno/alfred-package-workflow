@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.onvno.node</string>
+	<string>onvno_npm</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
-		<key>DFE829B9-5556-4316-B15B-6C5D7F8814FE</key>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>582EEE43-B76E-49E7-A4F3-EF8ACC3C6651</string>
+				<string>971F4A52-C37B-41BA-A52C-45F2E8B099E0</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -23,13 +23,13 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>weidong</string>
+	<string>Li Weidong</string>
 	<key>description</key>
-	<string>请输入需要查找的包名</string>
+	<string>用于快速查包及跳转官网</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>node</string>
+	<string>npm</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -40,22 +40,54 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>102</integer>
+				<integer>36</integer>
 				<key>keyword</key>
-				<string>node</string>
+				<string>npm</string>
 				<key>queuedelaycustom</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
-				<true/>
+				<false/>
 				<key>queuedelaymode</key>
-				<integer>2</integer>
+				<integer>1</integer>
 				<key>queuemode</key>
 				<integer>2</integer>
 				<key>runningsubtext</key>
 				<string>加载中......</string>
 				<key>script</key>
-				<string># onvno.github.com
-python effect.py "{query}"</string>
+				<string># author: Li Weidong &lt;github:onvno&gt;
+# -*- coding: utf-8 -*-
+
+from Feedback import Feedback
+import sys
+import json
+import urllib2
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+query = '{query}'
+url = 'https://www.npmjs.com/search/suggestions?q=' + query
+
+req = urllib2.Request(url)
+f = urllib2.urlopen(req)
+
+content = f.read()
+
+response = json.loads(content)
+fb = Feedback()
+try:
+    for item in response:
+        if item['name'] is not None:
+            fb.add_item(item['name'],
+                        subtitle=item['description'] + ". v" + item['version'],
+                        arg=item['links']['homepage'],
+                        icon='icon.png')
+except TypeError as te:
+    fb.add_item(response['error'], icon='icon.png')
+except Exception as e:
+    fb.add_item('出错了,请重试！' + e.message)
+print fb
+</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -65,14 +97,14 @@ python effect.py "{query}"</string>
 				<key>title</key>
 				<string>请输入需要查找的包名</string>
 				<key>type</key>
-				<integer>0</integer>
+				<integer>3</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>DFE829B9-5556-4316-B15B-6C5D7F8814FE</string>
+			<string>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -91,31 +123,31 @@ python effect.py "{query}"</string>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>582EEE43-B76E-49E7-A4F3-EF8ACC3C6651</string>
+			<string>971F4A52-C37B-41BA-A52C-45F2E8B099E0</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>random number</string>
+	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>582EEE43-B76E-49E7-A4F3-EF8ACC3C6651</key>
+		<key>7DD3BDE5-A157-42E5-9376-F681FB50A4EE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>430</integer>
+			<integer>280</integer>
 			<key>ypos</key>
-			<integer>120</integer>
+			<integer>110</integer>
 		</dict>
-		<key>DFE829B9-5556-4316-B15B-6C5D7F8814FE</key>
+		<key>971F4A52-C37B-41BA-A52C-45F2E8B099E0</key>
 		<dict>
 			<key>xpos</key>
-			<integer>190</integer>
+			<integer>510</integer>
 			<key>ypos</key>
-			<integer>120</integer>
+			<integer>110</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string>onvno.github.com</string>
+	<string>https://github.com/onvno</string>
 </dict>
 </plist>
